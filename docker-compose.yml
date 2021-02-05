@@ -17,7 +17,7 @@ services:
     container_name: proxy
     image: g1guimaraes/pjc:proxy
     ports:
-      - 80:80
+      - '80:80'
     links:
       - webserver01
       - webserver02
