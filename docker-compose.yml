@@ -53,7 +53,7 @@ services:
       - DB_SERVER_HOST=mysql
       - MYSQL_DATABASE=zabbix
       - MYSQL_USER=zabbix
-      - MYSQL_PASSWORD=carryontech
+      - MYSQL_PASSWORD=senhazabbix
     depends_on:
       - mysql
 
