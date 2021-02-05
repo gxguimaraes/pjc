@@ -19,8 +19,8 @@ services:
     ports:
       - 80:80
     links:
-      - g1guimaraes/pjc:webserver01
-      - g1guimaraes/pjc:webserver02
+      - webserver01
+      - webserver02
 
   mysql:
     container_name: mysql
