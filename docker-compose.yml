@@ -1,0 +1,78 @@
+version: '3'
+
+networks:
+  network-zabbix:
+    driver: bridge
+
+services:
+  webserver01:
+    container_name: webserver01
+    image: g1guimaraes/pjc:webserver01
+
+  webserver02:
+    container_name: webserver02
+    image: g1guimaraes/pjc:webserver02
+
+  proxy:
+    container_name: proxy
+    image: g1guimaraes/pjc:proxy
+    ports:
+      - 80:80
+    links:
+      - g1guimaraes/pjc:webserver01
+      - g1guimaraes/pjc:webserver02
+
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    networks:
+      - network-zabbix
+    ports:
+      - '3306:3306'
+    volumes:
+      - './zabbix/mysql:/var/lib/data'
+    environment:
+      - MYSQL_ROOT_PASSWORD=senhadoroot
+      - MYSQL_DATABASE=zabbix
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD=senhazabbix
+
+  zabbix-server:
+    container_name: zabbix-server
+    image: zabbix/zabbix-server-mysql:ubuntu-5.0.1
+    networks:
+      - network-zabbix
+    links:
+      - mysql
+    restart: always
+    ports:
+      - '10051:10051'
+    volumes:
+      - './zabbix/alertscripts:/usr/lib/zabbix/alertscripts'
+    environment:
+      - DB_SERVER_HOST=mysql
+      - MYSQL_DATABASE=zabbix
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD=carryontech
+    depends_on:
+      - mysql
+
+  zabbix-frontend:
+    container_name: zabbix-frontend
+    image: zabbix/zabbix-web-apache-mysql:ubuntu-5.0.1
+    networks:
+      - network-zabbix
+    links:
+      - mysql
+    restart: always
+    ports:
+      - '8080:8080'
+      - '443:8443'
+    environment:
+      - DB_SERVER_HOST=mysql
+      - MYSQL_DATABASE=zabbix
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD=senhazabbix
+      - PHP_TZ=America/Cuiaba
+    depends_on:
+      - mysql
