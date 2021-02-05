@@ -4,4 +4,6 @@ E-Mail: gguimaraes@protonmail.com
 
 Instruções:
 
-Fazer o GIT do projeto e rodar o "docker-compose up".
+1- Fazer o GIT clone do branch master;
+2- Acessar a pasta pjc;
+3- Rodar o comando "docker-compose up";
