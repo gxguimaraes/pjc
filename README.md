@@ -23,6 +23,8 @@ do GitHub, crei também um repositório no docker hub, para as imagens nginx
 personalizadas que criei para os containers de webserver e proxy. Embora o prazo
 tenha sido prorrogado, não consegui iniciar as configurações de rede do projeto
 proposto (VLANs, endereçamento IP, roteamento, etc), assim deixando de lado o container de
-firewall solicitado.
+firewall solicitado. Finalizando, gostei do desafio e foi bem satisfatório ver o
+docker compose pelo conseguir subir todos os containers, mesmo não estando eles
+100%.
 
 Grato pela atenção e oportunidade.
